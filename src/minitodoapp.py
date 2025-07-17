@@ -3,7 +3,7 @@ import flet as ft
 
 def main(page: ft.Page):
     page.title="ToDo App"
-    page.horizontal_alignment=ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment=ft.CrossAxisAlignment.CENTER
     page.vertical_alignment=ft.MainAxisAlignment.START
 
     task_column = ft.Column()
@@ -28,7 +28,7 @@ def main(page: ft.Page):
         show_cursor=True,
        # suffix_icon=ft.Row([done, cancel],alignment=ft.MainAxisAlignment.END)
     )
-    
+
     done_button = ft.IconButton(icon=ft.Icons.DONE_OUTLINE_SHARP, on_click=add_task)
     cancel_button = ft.IconButton(icon=ft.Icons.CANCEL_OUTLINED, on_click=clear_textfield)
 
