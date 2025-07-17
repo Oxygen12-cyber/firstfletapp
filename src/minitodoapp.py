@@ -22,9 +22,13 @@ def main(page: ft.Page):
 
     done = ft.IconButton(icon=ft.Icons.DONE)
     cancel = ft.IconButton(icon=ft.Icons.CANCEL)
-    input_field = ft.TextField(label="Your Task", on_submit=add_task, show_cursor=True,
-                               # suffix_icon=ft.Row([done, cancel],alignment=ft.MainAxisAlignment.END)
-                               )
+    input_field = ft.TextField(
+        label="Your Task",
+        on_submit=add_task,
+        show_cursor=True,
+       # suffix_icon=ft.Row([done, cancel],alignment=ft.MainAxisAlignment.END)
+    )
+    
     done_button = ft.IconButton(icon=ft.Icons.DONE_OUTLINE_SHARP, on_click=add_task)
     cancel_button = ft.IconButton(icon=ft.Icons.CANCEL_OUTLINED, on_click=clear_textfield)
 

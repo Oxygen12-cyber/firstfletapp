@@ -3,7 +3,7 @@ from flet.core.webview import WebView
 
 
 def main(page: ft.Page):
-    page.title = "CHATGPT ToDo"
+    page.title = "CHATGPT ToDo Mobile Version"
     print('App Reloading')
     page.horizontal_alignment = ft.MainAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
