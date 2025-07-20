@@ -102,7 +102,7 @@ def main(page: ft.Page):
                                 )
                             )
                         ],
-                            alignment=ft.MainAxisAlignment.CENTER),
+                        alignment=ft.MainAxisAlignment.CENTER),
                         margin=ft.margin.only(top=40),
                     ),
                     ft.Container(
