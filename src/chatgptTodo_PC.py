@@ -5,7 +5,10 @@ def main(page: ft.Page):
     page.title = "CHATGPT ToDo PC APP"
     page.horizontal_alignment = ft.MainAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.bgcolor = "#FF2D2D30"
+    page.bgcolor = "#4a4e69"
+    page.padding=0
+    page.spacing=0
+    page.margin=0
     page.fonts = {"Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Medium.ttf"}
     page.theme = ft.Theme(font_family="Kanit")
 
@@ -82,7 +85,9 @@ def main(page: ft.Page):
             text_align=ft.alignment.center_right,
             size=30,
             color=ft.Colors.WHITE
-        ), margin=ft.margin.only(left=20, top=40)
+        ),
+        margin=ft.margin.only(left=120, top=40),
+
     )
 
     #fullboxinput
@@ -93,7 +98,7 @@ def main(page: ft.Page):
                     box_input,
                     width=330,
                     height=80,
-                    bgcolor=ft.Colors.BLACK26,
+                    bgcolor="22223b",
                     border_radius=28,
                     alignment=ft.alignment.center,
                     shadow=ft.BoxShadow(
@@ -117,11 +122,11 @@ def main(page: ft.Page):
                 ft.Container(
                     task_column,
                     padding=ft.padding.only(top=20, left=20),
-                    # width=380,
+                    # width=600,
                     expand=True,
                     margin=ft.margin.only(left=20, right=20, top=40),
                     height=600,
-                    bgcolor=ft.Colors.BLACK26,
+                    bgcolor="9a8c98",
                     border_radius=24,
                     shadow=ft.BoxShadow(
                         blur_radius=15,
@@ -137,14 +142,32 @@ def main(page: ft.Page):
 
     page.add(
         ft.Container(
-            bgcolor="#FF2D2D30",
-            content=ft.Column(
-                [
-                    todo_text,
-                    full_box,
-                    task_box,
+            bgcolor="#4a4e69",
+            content=ft.Row(
+                controls=[
+                    ft.Container(
+                        bgcolor=ft.Colors.BLACK26,
+                        height=400,
+                        width=100,
+                        margin=ft.margin.only(left=20, right=20, bottom=80),
+                        border_radius=12,
+
+                    ),
+                    ft.Container(
+                        ft.Column(
+                            [
+                                todo_text,
+                                full_box,
+                                task_box,
+                            ],
+                            alignment=ft.MainAxisAlignment.SPACE_EVENLY,
+                        ),
+                        margin=ft.margin.only(left=80),
+                        expand=True,
+                    )
                 ],
-                alignment=ft.MainAxisAlignment.SPACE_EVENLY,
+                expand=True,
+                alignment=ft.MainAxisAlignment.START,
             )
         )
     )
