@@ -98,7 +98,7 @@ def main(page: ft.Page):
                     box_input,
                     width=330,
                     height=80,
-                    bgcolor="22223b",
+                    bgcolor="#22223b",
                     border_radius=28,
                     alignment=ft.alignment.center,
                     shadow=ft.BoxShadow(
@@ -126,7 +126,7 @@ def main(page: ft.Page):
                     expand=True,
                     margin=ft.margin.only(left=20, right=20, top=40),
                     height=600,
-                    bgcolor="9a8c98",
+                    bgcolor="#22223b",
                     border_radius=24,
                     shadow=ft.BoxShadow(
                         blur_radius=15,
