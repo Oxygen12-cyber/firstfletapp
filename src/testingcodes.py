@@ -1,43 +1,67 @@
 import flet as ft
 
+
 def main(page: ft.Page):
-    page.bgcolor="#1e1e1e"
-    page.padding= 0
-    page.spacing=0
-    page.title="TestingCodes"
-    page.horizontal_alignment="center"
-    page.vertical_alignment="center"
+    page.bgcolor = "#888581"
+    page.padding = 0
+    page.spacing = 0
+    page.title = "TestingCodes"
+    page.horizontal_alignment = "center"
+    page.vertical_alignment = "center"
 
-
-    class MenuButton(ft.Button):
-        def __init__(self):
-            super().__init__()
-            pass
-
-
-    main_block = ft.Container(
-        bgcolor=ft.Colors.BLACK,
-        width=150,
-        height=300,
-        border_radius=24,
-        alignment=ft.alignment.center,
-        margin=ft.margin.only(top=140, bottom=50),
-        content=ft.Container(
-            padding=10,
-            bgcolor=ft.Colors.BLACK,
-            border=ft.border.all(1, ft.Colors.WHITE54),
-            alignment=ft.alignment.center
-
-        )
-
-    )
+    menu_button = ft.Icon(name=ft.Icons.LOCK_CLOCK_SHARP, color="white")
 
     page.add(
         ft.Container(
-            main_block,
-            expand=True,
-            bgcolor=ft.Colors.GREY_300,
+            content=ft.Row(
+                controls=[
+                    ft.Container(
+                        bgcolor="#2f2f2d",
+                        height=400,
+                        width=100,
+                        border_radius=24,
+                        shadow=ft.BoxShadow(
+                            blur_radius=15,
+                            spread_radius=1,
+                            offset=ft.Offset(0, 0),
+                            color="2f2f2d",
+                            blur_style=ft.ShadowBlurStyle.SOLID,
+                        ),
+                        padding=ft.padding.all(12),
+                        content=ft.Container(
+                            bgcolor="#2f2f2d",
+                            height=400,
+                            width=100,
+                            border_radius=12,
+                            border=ft.border.all(1, color="#ffffff"),
+                            alignment=ft.alignment.center,
+                            content=ft.Column(
+                                controls=[
+                                    ft.Container(
+                                        bgcolor="#2f2f2d",
+                                        height=60,
+                                        width=60,
+                                        border_radius=12,
+                                        padding=ft.padding.all(5),
+                                        shadow=ft.BoxShadow(
+                                            blur_radius=12,
+                                            spread_radius=1,
+                                            offset=ft.Offset(0, 0),
+                                            # blur_style="solid"
+
+                                        ),
+                                        content=menu_button,
+                                        margin=ft.margin.only(top=5)
+                                    )
+                                ],
+                            )
+                        )
+                    ),
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+            )
         )
     )
 
-ft.app(target=main)
+
+ft.app(main)

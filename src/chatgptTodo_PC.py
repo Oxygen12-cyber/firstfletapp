@@ -12,6 +12,8 @@ def main(page: ft.Page):
     page.fonts = {"Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Medium.ttf"}
     page.theme = ft.Theme(font_family="Kanit")
 
+
+
     task_column = ft.Column(
         scroll=ft.ScrollMode.AUTO,
         expand=True,
@@ -149,9 +151,23 @@ def main(page: ft.Page):
                         bgcolor=ft.Colors.BLACK26,
                         height=400,
                         width=100,
-                        margin=ft.margin.only(left=20, right=20, bottom=80),
-                        border_radius=12,
-
+                        margin=ft.margin.only(left=20, right=20, bottom=140),
+                        border_radius=24,
+                        padding=ft.padding.all(12),
+                        shadow=ft.BoxShadow(
+                            blur_radius=15,
+                            spread_radius=2,
+                            offset=ft.Offset(0, 0),
+                            color=ft.Colors.BLACK12,
+                            blur_style=ft.ShadowBlurStyle.SOLID,
+                        ),
+                        content=ft.Container(
+                            bgcolor=ft.Colors.BLACK26,
+                            height=400,
+                            width=100,
+                            border_radius=12,
+                            border=ft.border.all(1, color=ft.Colors.WHITE24),
+                        )
                     ),
                     ft.Container(
                         ft.Column(
