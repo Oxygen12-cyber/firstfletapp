@@ -6,13 +6,11 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.MainAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.bgcolor = "#4a4e69"
-    page.padding=0
-    page.spacing=0
-    page.margin=0
+    page.padding = 0
+    page.spacing = 0
+    page.margin = 0
     page.fonts = {"Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Medium.ttf"}
     page.theme = ft.Theme(font_family="Kanit")
-
-
 
     task_column = ft.Column(
         scroll=ft.ScrollMode.AUTO,
@@ -80,6 +78,68 @@ def main(page: ft.Page):
         )
     )
 
+    class MenuOptions(ft.IconButton):
+
+        def __init__(self, lcon):
+            super().__init__(
+                icon_size=36,
+                icon=lcon,
+                on_click=self.option_click,
+                on_hover=self.option_hover,
+            )
+            self.icon_color = ft.Colors.BLACK
+            self.bgcolor = ft.Colors.TRANSPARENT
+            self.click_state = 0
+
+        def option_click(self, e):
+            if self.click_state == 0:
+                self.icon_color = "white"
+                self.bgcolor = "#808396"
+                self.click_state = 1
+                self.update()
+            else:
+                self.icon_color = ft.Colors.BLACK
+                self.bgcolor = ft.Colors.TRANSPARENT
+                self.click_state = 0
+                self.update()
+        def option_hover(self, e):
+            if e.data == "true":
+                self.scale=1.1
+            else:
+                self.scale=1.0
+            self.update()
+
+
+    #menubar
+    menubar = ft.Container(
+        bgcolor=ft.Colors.BLACK26,
+        height=400,
+        width=80,
+        margin=ft.margin.only(left=20, right=20, bottom=140),
+        border_radius=28,
+        padding=ft.padding.all(12),
+        shadow=ft.BoxShadow(
+            blur_radius=15,
+            spread_radius=2,
+            offset=ft.Offset(0, 0),
+            color=ft.Colors.BLACK12,
+            blur_style=ft.ShadowBlurStyle.SOLID,
+        ),
+        alignment=ft.alignment.center,
+        content=ft.Container(
+            ft.Column(
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                controls=[
+                    MenuOptions(lcon=ft.Icons.HOME_OUTLINED),
+                    MenuOptions(lcon=ft.Icons.FOLDER_OPEN),
+                    MenuOptions(lcon=ft.Icons.HISTORY),
+                    MenuOptions(lcon=ft.Icons.MODE_NIGHT),
+                    MenuOptions(lcon=ft.Icons.SETTINGS),
+                ]
+            )
+        )
+    )
     #Todotext
     todo_text = ft.Container(
         ft.Text(
@@ -147,28 +207,7 @@ def main(page: ft.Page):
             bgcolor="#4a4e69",
             content=ft.Row(
                 controls=[
-                    ft.Container(
-                        bgcolor=ft.Colors.BLACK26,
-                        height=400,
-                        width=100,
-                        margin=ft.margin.only(left=20, right=20, bottom=140),
-                        border_radius=24,
-                        padding=ft.padding.all(12),
-                        shadow=ft.BoxShadow(
-                            blur_radius=15,
-                            spread_radius=2,
-                            offset=ft.Offset(0, 0),
-                            color=ft.Colors.BLACK12,
-                            blur_style=ft.ShadowBlurStyle.SOLID,
-                        ),
-                        content=ft.Container(
-                            bgcolor=ft.Colors.BLACK26,
-                            height=400,
-                            width=100,
-                            border_radius=12,
-                            border=ft.border.all(1, color=ft.Colors.WHITE24),
-                        )
-                    ),
+                    menubar,
                     ft.Container(
                         ft.Column(
                             [

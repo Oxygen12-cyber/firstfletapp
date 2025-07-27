@@ -9,7 +9,7 @@ def main(page: ft.Page):
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
 
-    menu_button = ft.Icon(name=ft.Icons.LOCK_CLOCK_SHARP, color="white")
+    menu_button = ft.IconButton(icon=ft.Icons.LOCK_CLOCK_SHARP, icon_color="white")
 
     page.add(
         ft.Container(
