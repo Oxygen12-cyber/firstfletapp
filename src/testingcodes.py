@@ -9,57 +9,56 @@ def main(page: ft.Page):
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
 
+    menu_button = ft.IconButton(
+        icon=ft.Icons.LOCK_CLOCK_SHARP,
+        width=64, height=64, bgcolor="black",
+        icon_color="white",
+        style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=0))
+    )
+
+    class CustomMenubar(ft.Container):
+        def __init__(self, expand_const: int):
+            super().__init__(
+                height=400,
+                bgcolor="#2f2f2d",
+                border_radius=24,
+                shadow=ft.BoxShadow(
+                    blur_radius=15,
+                    spread_radius=1,
+                    offset=ft.Offset(0, 0),
+                    color="2f2f2d",
+                    blur_style=ft.ShadowBlurStyle.SOLID,
+                ),
+                padding=ft.padding.all(12),
+                content=ft.Column([menu_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                ink=False,
+                on_hover=self.onhover,
+                animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
+            )
+            self.width = 100
+            self.expand_const = expand_const
+            self.current_state = 0
+
+        def onhover(self, e):
+            if e.data:
+                self.current_state = 1
+                self.width = self.expand_const
+                self.update()
+            elif not e.data and self.current_state == 1:
+                self.width = self.expand_const
+                self.current_state = 0
+            self.update()
+
     menu_button = ft.IconButton(icon=ft.Icons.LOCK_CLOCK_SHARP, icon_color="white")
+    menu = CustomMenubar(expand_const=400)
 
     page.add(
         ft.Container(
             content=ft.Row(
-                controls=[
-                    ft.Container(
-                        bgcolor="#2f2f2d",
-                        height=400,
-                        width=100,
-                        border_radius=24,
-                        shadow=ft.BoxShadow(
-                            blur_radius=15,
-                            spread_radius=1,
-                            offset=ft.Offset(0, 0),
-                            color="2f2f2d",
-                            blur_style=ft.ShadowBlurStyle.SOLID,
-                        ),
-                        padding=ft.padding.all(12),
-                        content=ft.Container(
-                            bgcolor="#2f2f2d",
-                            height=400,
-                            width=100,
-                            border_radius=12,
-                            border=ft.border.all(1, color="#ffffff"),
-                            alignment=ft.alignment.center,
-                            content=ft.Column(
-                                controls=[
-                                    ft.Container(
-                                        bgcolor="#2f2f2d",
-                                        height=60,
-                                        width=60,
-                                        border_radius=12,
-                                        padding=ft.padding.all(5),
-                                        shadow=ft.BoxShadow(
-                                            blur_radius=12,
-                                            spread_radius=1,
-                                            offset=ft.Offset(0, 0),
-                                            # blur_style="solid"
-
-                                        ),
-                                        content=menu_button,
-                                        margin=ft.margin.only(top=5)
-                                    )
-                                ],
-                            )
-                        )
-                    ),
-                ],
-                alignment=ft.MainAxisAlignment.CENTER
-            )
+                controls=[menu],
+                alignment=ft.MainAxisAlignment.START,
+            ),
+            margin=ft.margin.only(left=100)
         )
     )
 
