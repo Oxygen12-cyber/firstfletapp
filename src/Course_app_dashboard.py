@@ -28,7 +28,6 @@ class UIbutton(ft.ElevatedButton):
     def on_click(self, e):
         pass
 
-
 class UIlistitem(ft.Container):
     def __init__(self, titletext, subtext, time=None, users=None, imagesrc="images/icon.png", button_text=None, expansion=False):
         super().__init__(
@@ -193,44 +192,34 @@ def main(page: ft.Page):
 
     )
 
+    #hello image popup
+    hi_image = ft.Container(
+        ft.Image(
+            src="images/actor.png",
+            fit=ft.ImageFit.CONTAIN
+        ),
+        width=128,
+        height=128,
+        # bgcolor="grey"
+    )
+
     # main content definition
     main_content = ft.Container(
         ft.Column(
             [
                 ft.Container(
-                    UIcardcontainer(
-                        content=ft.Row(
-                            [
-                                ft.Container(
-                                    ft.Column(
-                                        [
-                                            ft.Text(value="Hello Josh!", color="black", weight=ft.FontWeight.BOLD,
-                                                    size=35, font_family="jua"),
-                                            ft.Text(value="Its good to see you again", color=ft.Colors.GREY_800,
-                                                    weight=ft.FontWeight.W_100, size=12, font_family="jua"),
+                    ft.Stack(
+                        [
+                            UIcardcontainer(
 
-                                        ],
-                                        spacing=2,
-                                        tight=True,
-                                        horizontal_alignment=ft.CrossAxisAlignment.START,
-                                        alignment=ft.MainAxisAlignment.CENTER,
-                                    ),
-                                    margin=ft.margin.only(top=20, bottom=20, left=20),
-                                ),
-                                ft.Container(
-                                    ft.Image(src="images/actor.png", fit=ft.ImageFit.FILL),
-                                    width=64,
-                                    height=64,
-                                    margin=ft.margin.only(top=30, bottom=0, right=20),
-                                )
-                            ],
-                            spacing=180,
-                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                        ),
-                        c_width=600,
-                        expansion=True
-                    ),
-                    expand=True
+                                c_width=600,
+                                c_height=200
+                            ),
+                            hi_image
+                        ],
+                        alignment=ft.alignment.bottom_right
+                    )
+
                 ),
                 ft.Container(
                     ft.Row(

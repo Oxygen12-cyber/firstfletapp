@@ -1,55 +1,40 @@
 import flet as ft
-from Course_app_dashboard import UIbutton
+from Course_app_dashboard import UIcardcontainer
 from Course_app_dashboard import UIlistitem
-
-
-
 
 
 def main(page: ft.Page):
     page.bgcolor = "#1e1e1e"
     page.padding = 30
+    page.vertical_alignment=ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment=ft.MainAxisAlignment.CENTER
 
-    tab = ft.Tabs(
-        selected_index=0,
-        label_color="black",
-        label_text_style=ft.TextStyle(weight=ft.FontWeight.BOLD),
-        indicator_color="black",
-        animation_duration=1000,
-        indicator_thickness=4,
-        overlay_color="transparent",
-        divider_color="transparent",
-        tab_alignment=ft.TabAlignment.START_OFFSET,
-        unselected_label_color=ft.Colors.GREY_600,
-        tabs=[
-            ft.Tab(
-                text="All Courses",
-                content=ft.ListView(
-                    [
-                        UIlistitem("Friends", "this is good", time="now", users="5", button_text="clickme")
-                    ],
-                    spacing=10,
-                    padding=20
-                )
-            ),
-            ft.Tab(text="The Newest"),
-            ft.Tab(text="Top Rated"),
-            ft.Tab(text="Most Popular"),
-        ]
+    center_card = UIcardcontainer(
+        500,
+        150,
     )
-
-    tabmode = ft.Container(
-        ft.Column(
-            [tab],
-            scroll=ft.ScrollMode.AUTO,
-            # horizontal_alignment=ft.CrossAxisAlignment.START
+    card_image = ft.Container(
+        ft.Image(
+            src="images/actor.png",
+            fit=ft.ImageFit.CONTAIN
         ),
-        width=1200,
-        height=400,
-        bgcolor="grey",
+        width=256,
+        height=256,
+        # bgcolor="grey"
+    )
 
+    stack_layout = ft.Stack(
+        [center_card, card_image],
+        alignment=ft.alignment.bottom_right
     )
 
 
-page.add(tabmode)
+
+
+    page.add(
+        ft.Container(
+            stack_layout,
+            alignment=ft.alignment.bottom_center
+        )
+    )
 ft.app(target=main)
