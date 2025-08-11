@@ -28,7 +28,33 @@ def main(page: ft.Page):
         alignment=ft.alignment.bottom_right
     )
 
+    ft.Container(
+        ft.Row(
+            [
+                ft.Container(
+                   ft.TextField(
+                       prefix_icon=ft.Icon(name=ft.Icons.SEARCH_OUTLINED),
+                       hint_text="Search Courses",
+                       hint_style=ft.TextStyle(color=ft.Colors.GREEN_600),
+                       border_color="black",
+                       border_radius=12,
 
+                       max_length=30,
+
+                   )
+                ),
+                ft.Container(
+                    ft.Row(
+                        [
+                            ft.IconButton(icon=ft.Icons.ARROW_BACK_ROUNDED, icon_color="black"),
+                            ft.IconButton(icon=ft.Icons.ARROW_FORWARD_ROUNDED, icon_color="black")
+                        ],
+                    )
+                )
+            ]
+        ),
+        expand=True
+    ),
 
 
     page.add(
@@ -38,3 +64,6 @@ def main(page: ft.Page):
         )
     )
 ft.app(target=main)
+
+
+

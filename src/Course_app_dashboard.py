@@ -195,12 +195,14 @@ def main(page: ft.Page):
     #hello image popup
     hi_image = ft.Container(
         ft.Image(
-            src="images/actor.png",
-            fit=ft.ImageFit.CONTAIN
+            src="images/vecteezy-actor.png",
+            fit=ft.ImageFit.COVER
         ),
-        width=128,
-        height=128,
-        # bgcolor="grey"
+        width=200,
+        height=200,
+        # bgcolor="grey",
+        margin=ft.margin.only(right=30)
+
     )
 
     # main content definition
@@ -211,9 +213,19 @@ def main(page: ft.Page):
                     ft.Stack(
                         [
                             UIcardcontainer(
-
+                                content=ft.Container(
+                                    ft.Column(
+                                        [
+                                            ft.Text(value="Hello Josh!", color="black", size=35, font_family="jua"),
+                                            ft.Text(value="Its good to see you again", color=ft.Colors.GREY_800,
+                                                    weight=ft.FontWeight.W_100, size=12, font_family="jua")
+                                        ],
+                                        alignment=ft.MainAxisAlignment.SPACE_AROUND
+                                    ),
+                                    padding=36,
+                                    alignment=ft.alignment.center_left
+                                ),
                                 c_width=600,
-                                c_height=200
                             ),
                             hi_image
                         ],
@@ -229,7 +241,8 @@ def main(page: ft.Page):
                                     UIlistitem(titletext="Spanish #2", subtext="by Alexandra Velaquez",
                                                button_text="Continue")
                                 ),
-                                c_width=500
+                                c_width=500,
+                                expansion=True
                             ),
                             ft.Container(
                                 ft.Row(
@@ -247,10 +260,11 @@ def main(page: ft.Page):
                     ft.Text(
                         value="Courses",
                         color="black",
-                        weight=ft.FontWeight.BOLD
+                        weight=ft.FontWeight.W_900
                     ),
                     expand=True,
-                    bgcolor="grey"
+                    # bgcolor="grey"
+                    padding=ft.padding.only(top=14)
                 ),
                 tabmode
             ],
