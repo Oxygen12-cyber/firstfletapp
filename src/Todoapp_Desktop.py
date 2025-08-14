@@ -5,7 +5,10 @@ def main(page: ft.Page):
     page.title = "CHATGPT ToDo PC APP"
     page.horizontal_alignment = ft.MainAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.bgcolor = "#FF2D2D30"
+    page.bgcolor = "#4a4e69"
+    page.padding = 0
+    page.spacing = 0
+    page.margin = 0
     page.fonts = {"Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Medium.ttf"}
     page.theme = ft.Theme(font_family="Kanit")
 
@@ -15,37 +18,41 @@ def main(page: ft.Page):
         alignment=ft.MainAxisAlignment.START,
     )
 
+    #focusmode func
     def focus_mode(e):
         done_button.visible = True
         cancel_button.visible = True
         done_button.update()
         cancel_button.update()
 
+    # add_task func
     def add_task(e):
-        if not box_input.value == "":
-            check_box = ft.Checkbox(
-                label=box_input.value,
-                label_style=ft.TextStyle(color="white", size=24, weight=ft.FontWeight.NORMAL),
-                hover_color=ft.Colors.GREY_700,
-                active_color=ft.Colors.GREY_300,
-                check_color=ft.Colors.GREY_800,
-            )
-            task_column.controls.append(check_box)
-            box_input.value = ""
-            page.update()
+        check_box = ft.Checkbox(
+            label=box_input.value,
+            label_style=ft.TextStyle(color="white", size=24, weight=ft.FontWeight.NORMAL),
+            hover_color=ft.Colors.GREY_700,
+            active_color=ft.Colors.GREY_300,
+            check_color=ft.Colors.GREY_800,
+        )
+        task_column.controls.append(check_box)
+        box_input.value = ""
+        page.update()
 
+    #cancelvalue func
     def cancel_value(e):
         box_input.value = ""
         box_input.update()
 
+    # onblur func
     def onblur(e):
         box_input.value = ""
         done_button.visible = False
         cancel_button.visible = False
         page.update()
 
-    done_button = ft.IconButton(icon=ft.Icons.DONE, visible=False, on_click=add_task, tooltip="save task", hover_color=ft.Colors.BLUE_GREY_300)
-    cancel_button = ft.IconButton(icon=ft.Icons.CANCEL, visible=False, on_click=cancel_value, tooltip="delete task", hover_color=ft.Colors.BLUE_GREY_300)
+    done_button = ft.IconButton(icon=ft.Icons.DONE, visible=False, on_click=add_task)
+    cancel_button = ft.IconButton(icon=ft.Icons.CANCEL, visible=False, on_click=cancel_value)
+    #inputbox code
     box_input = ft.TextField(
         label="Add a task",
         on_focus=focus_mode,
@@ -71,64 +78,151 @@ def main(page: ft.Page):
         )
     )
 
+    class MenuOptions(ft.IconButton):
+
+        def __init__(self, lcon):
+            super().__init__(
+                icon_size=36,
+                icon=lcon,
+                on_click=self.option_click,
+                on_hover=self.option_hover,
+            )
+            self.icon_color = ft.Colors.BLACK
+            self.bgcolor = ft.Colors.TRANSPARENT
+            self.click_state = 0
+
+        def option_click(self, e):
+            if self.click_state == 0:
+                self.icon_color = "white"
+                self.bgcolor = "#808396"
+                self.click_state = 1
+                self.update()
+            else:
+                self.icon_color = ft.Colors.BLACK
+                self.bgcolor = ft.Colors.TRANSPARENT
+                self.click_state = 0
+                self.update()
+        def option_hover(self, e):
+            if e.data == "true":
+                self.scale=1.1
+            else:
+                self.scale=1.0
+            self.update()
+
+
+    #menubar
+    menubar = ft.Container(
+        bgcolor=ft.Colors.BLACK26,
+        height=400,
+        width=80,
+        margin=ft.margin.only(left=20, right=20, bottom=140),
+        border_radius=28,
+        padding=ft.padding.all(12),
+        shadow=ft.BoxShadow(
+            blur_radius=15,
+            spread_radius=2,
+            offset=ft.Offset(0, 0),
+            color=ft.Colors.BLACK12,
+            blur_style=ft.ShadowBlurStyle.SOLID,
+        ),
+        alignment=ft.alignment.center,
+        content=ft.Container(
+            ft.Column(
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                controls=[
+                    MenuOptions(lcon=ft.Icons.HOME_OUTLINED),
+                    MenuOptions(lcon=ft.Icons.FOLDER_OPEN),
+                    MenuOptions(lcon=ft.Icons.HISTORY),
+                    MenuOptions(lcon=ft.Icons.MODE_NIGHT),
+                    MenuOptions(lcon=ft.Icons.SETTINGS),
+                ]
+            )
+        )
+    )
+    #Todotext
+    todo_text = ft.Container(
+        ft.Text(
+            "My To-Dos 📝",
+            text_align=ft.alignment.center_right,
+            size=30,
+            color=ft.Colors.WHITE
+        ),
+        margin=ft.margin.only(left=120, top=40),
+
+    )
+
+    #fullboxinput
+    full_box = ft.Container(
+        ft.Row(
+            [
+                ft.Container(
+                    box_input,
+                    width=330,
+                    height=80,
+                    bgcolor="#22223b",
+                    border_radius=28,
+                    alignment=ft.alignment.center,
+                    shadow=ft.BoxShadow(
+                        blur_radius=15,
+                        spread_radius=1,
+                        offset=ft.Offset(0, 0),
+                        color=ft.Colors.BLACK12,
+                        blur_style=ft.ShadowBlurStyle.SOLID,
+                    )
+                )
+            ],
+            alignment=ft.MainAxisAlignment.CENTER
+        ),
+        margin=ft.margin.only(top=40),
+    )
+
+    #taskbox
+    task_box = ft.Container(
+        ft.Row(
+            [
+                ft.Container(
+                    task_column,
+                    padding=ft.padding.only(top=20, left=20),
+                    # width=600,
+                    expand=True,
+                    margin=ft.margin.only(left=20, right=20, top=40),
+                    height=600,
+                    bgcolor="#22223b",
+                    border_radius=24,
+                    shadow=ft.BoxShadow(
+                        blur_radius=15,
+                        spread_radius=3,
+                        offset=ft.Offset(0, 0),
+                        color=ft.Colors.BLACK12,
+                        blur_style=ft.ShadowBlurStyle.SOLID,
+                    )
+                ),
+            ], alignment=ft.MainAxisAlignment.CENTER),
+        margin=ft.margin.only(top=10)
+    )
+
     page.add(
         ft.Container(
-            bgcolor="#FF2D2D30",
-            content=ft.Column(
-                [
+            bgcolor="#4a4e69",
+            content=ft.Row(
+                controls=[
+                    menubar,
                     ft.Container(
-                        ft.Text(
-                            "My To-Dos 📝",
-                            text_align=ft.alignment.center_right,
-                            size=30,
-                            color=ft.Colors.WHITE
-                        ), margin=ft.margin.only(left=20, top=40)
-                    ),
-                    ft.Container(
-                        ft.Row([
-                            ft.Container(
-                                box_input,
-                                width=330,
-                                height=80,
-                                bgcolor=ft.Colors.BLACK26,
-                                border_radius=28,
-                                alignment=ft.alignment.center,
-                                shadow=ft.BoxShadow(
-                                    blur_radius=15,
-                                    spread_radius=1,
-                                    offset=ft.Offset(0, 0),
-                                    color=ft.Colors.BLACK12,
-                                    blur_style=ft.ShadowBlurStyle.SOLID,
-                                )
-                            )
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER),
-                        margin=ft.margin.only(top=40),
-                    ),
-                    ft.Container(
-                        ft.Row([
-                            ft.Container(
-                                task_column,
-                                padding=ft.padding.only(top=20, left=20),
-                                # width=380,
-                                expand=True,
-                                margin=ft.margin.only(left=20, right=20, top=40),
-                                height=600,
-                                bgcolor=ft.Colors.BLACK26,
-                                border_radius=24,
-                                shadow=ft.BoxShadow(
-                                    blur_radius=15,
-                                    spread_radius=3,
-                                    offset=ft.Offset(0, 0),
-                                    color=ft.Colors.BLACK12,
-                                    blur_style=ft.ShadowBlurStyle.SOLID,
-                                )
-                            ),
-                        ], alignment=ft.MainAxisAlignment.CENTER),
-                        margin=ft.margin.only(top=10)
+                        ft.Column(
+                            [
+                                todo_text,
+                                full_box,
+                                task_box,
+                            ],
+                            alignment=ft.MainAxisAlignment.SPACE_EVENLY,
+                        ),
+                        margin=ft.margin.only(left=80),
+                        expand=True,
                     )
                 ],
-                alignment=ft.MainAxisAlignment.SPACE_EVENLY,
+                expand=True,
+                alignment=ft.MainAxisAlignment.START,
             )
         )
     )
