@@ -277,7 +277,66 @@ def main(page: ft.Page):
     right_panel = ft.Container(
         width=600,
         height=700,
-        bgcolor="red"
+        bgcolor="red",
+        content=ft.Column(
+            [
+                ft.Container(),
+                ft.Container(),
+                ft.Text(),
+                ft.Tabs(
+                    selected_index=0,
+                    label_color="black",
+                    label_text_style=ft.TextStyle(weight=ft.FontWeight.BOLD),
+                    indicator_color="black",
+                    animation_duration=1000,
+                    indicator_thickness=4,
+                    overlay_color="transparent",
+                    divider_color="transparent",
+                    tab_alignment=ft.TabAlignment.START,
+                    unselected_label_color=ft.Colors.GREY_600,
+                    tabs=[
+                        ft.Tab(
+                            content=ft.Container(
+                                ft.LineChart(
+                                    data_series=[
+                                        ft.LineChartData(
+                                            [
+                                                ft.LineChartDataPoint(0,0),
+                                                ft.LineChartDataPoint(1,1.5),
+                                                ft.LineChartDataPoint(2,2.5),
+                                                ft.LineChartDataPoint(3,1),
+                                                ft.LineChartDataPoint(4,4),
+                                                ft.LineChartDataPoint(5,3),
+                                                ft.LineChartDataPoint(6,2),
+
+                                            ]
+                                        )
+                                    ]
+                                )
+                            )
+                        )
+                    ]
+                ),
+                ft.Container(
+                    UIcardcontainer(
+                        content=ft.Row(
+                            [
+                                ft.Column(
+                                    [
+                                        ft.Text(value="Learn even more!", size=20, weight=ft.FontWeight.BOLD),
+                                        ft.Text(value="Unlock Premium Features", size=10, weight=ft.FontWeight.NORMAL),
+                                        UIbutton("Go Premium")
+                                    ]
+                                ),
+                                ft.Container(
+                                    ft.Image(src="images/actor.png", fit=ft.ImageFit.COVER)
+                                )
+                            ]
+                        )
+                    )
+                )
+            ]
+        )
     )
 
     page.add(

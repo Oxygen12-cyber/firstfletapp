@@ -28,16 +28,22 @@ def main(page: ft.Page):
         alignment=ft.alignment.bottom_right
     )
 
-    ft.Container(
+    #building component illegally here
+    search_comp = ft.Container(
         ft.Row(
             [
                 ft.Container(
                    ft.TextField(
-                       prefix_icon=ft.Icon(name=ft.Icons.SEARCH_OUTLINED),
+                       prefix_icon=ft.Icon(name=ft.Icons.SEARCH_OUTLINED, color="black"),
                        hint_text="Search Courses",
-                       hint_style=ft.TextStyle(color=ft.Colors.GREEN_600),
-                       border_color="black",
+                       hint_style=ft.TextStyle(color=ft.Colors.GREY_700),
+                       border_color="transparent",
+                       bgcolor="#f5f5f7",
+                       focused_bgcolor="#f5f5f7",
+                       focused_border_width=1,
+                       focused_border_color="black",
                        border_radius=12,
+                       cursor_color="black",
 
                        max_length=30,
 
@@ -46,23 +52,20 @@ def main(page: ft.Page):
                 ft.Container(
                     ft.Row(
                         [
-                            ft.IconButton(icon=ft.Icons.ARROW_BACK_ROUNDED, icon_color="black"),
-                            ft.IconButton(icon=ft.Icons.ARROW_FORWARD_ROUNDED, icon_color="black")
+                            ft.IconButton(icon=ft.Icons.NOTIFICATIONS_OUTLINED, icon_color="black"),
+                            ft.IconButton(icon=ft.Icons.ARROW_FORWARD_ROUNDED, icon_color="black"),
+                            ft.IconButton(icon=ft.Icons.ARROW_DROP_DOWN_OUTLINED, icon_color="black")
                         ],
                     )
                 )
             ]
         ),
         expand=True
-    ),
-
-
-    page.add(
-        ft.Container(
-            stack_layout,
-            alignment=ft.alignment.bottom_center
-        )
     )
+
+
+
+    page.add(search_comp)
 ft.app(target=main)
 
 
