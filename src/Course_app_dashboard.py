@@ -85,7 +85,7 @@ class Menuitem(ft.Container):
             tooltip=tooltip_text,
             on_click=self.on_click,
             ink=False,
-            content=ft.Icon(name=icon, color="white")
+            content=ft.Icon(name=icon, color=ft.Colors.GREY_500)
         )
 
     def on_click(self, e):
@@ -172,9 +172,9 @@ def main(page: ft.Page):
         content=ft.Column(
             [
                 ft.Container(
-                    ft.Image(src="images/icon.png", fit=ft.ImageFit.COVER),
-                    width=48,
-                    height=48
+                    ft.Image(src="images/oxygenlogo-white.png", fit=ft.ImageFit.COVER),
+                    width=55,
+                    height=55
                 ),
                 ft.Container(
                     ft.Column(
@@ -277,46 +277,70 @@ def main(page: ft.Page):
     right_panel = ft.Container(
         width=600,
         height=700,
-        bgcolor="red",
         content=ft.Column(
             [
-                ft.Container(),
-                ft.Container(),
-                ft.Text(),
-                ft.Tabs(
-                    selected_index=0,
-                    label_color="black",
-                    label_text_style=ft.TextStyle(weight=ft.FontWeight.BOLD),
-                    indicator_color="black",
-                    animation_duration=1000,
-                    indicator_thickness=4,
-                    overlay_color="transparent",
-                    divider_color="transparent",
-                    tab_alignment=ft.TabAlignment.START,
-                    unselected_label_color=ft.Colors.GREY_600,
-                    tabs=[
-                        ft.Tab(
-                            content=ft.Container(
-                                ft.LineChart(
-                                    data_series=[
-                                        ft.LineChartData(
-                                            [
-                                                ft.LineChartDataPoint(0,0),
-                                                ft.LineChartDataPoint(1,1.5),
-                                                ft.LineChartDataPoint(2,2.5),
-                                                ft.LineChartDataPoint(3,1),
-                                                ft.LineChartDataPoint(4,4),
-                                                ft.LineChartDataPoint(5,3),
-                                                ft.LineChartDataPoint(6,2),
-
-                                            ]
-                                        )
-                                    ]
+                ft.Container(
+                    ft.Row(
+                        [
+                            ft.Container(
+                                ft.TextField(
+                                    hint_text="Add a task",
+                                    focused_border_color=ft.Colors.BLACK,
+                                    show_cursor=True,
+                                    width=300,
+                                    border_color=ft.Colors.BLACK,
+                                    border_radius=14,
+                                    color=ft.Colors.BLACK,
+                                    cursor_color=ft.Colors.BLACK,
+                                    expand=True,
+                                    hint_style=ft.TextStyle(color=ft.Colors.BLACK54),
+                                    prefix_icon=ft.Icon(ft.Icons.SEARCH_OUTLINED, color="black")
+                                )
+                            ),
+                            ft.Container(
+                                ft.Row(
+                                    [
+                                        ft.IconButton(icon=ft.Icons.NOTIFICATIONS_OUTLINED, icon_color="black"),
+                                        ft.Container(ft.Image(src="images/icon.png", fit=ft.ImageFit.CONTAIN),
+                                                     width=24, height=24, bgcolor="gray",),
+                                        ft.IconButton(icon=ft.Icons.ARROW_DROP_DOWN_OUTLINED, icon_color="black")
+                                    ],
                                 )
                             )
-                        )
-                    ]
+                        ]
+                    )
                 ),
+                ft.Container(
+                    ft.Row(
+                        [
+                            UIcardcontainer(content=ft.Container(
+                                ft.Row(
+                                    [
+                                        ft.Text(value="11", size=45, weight=ft.FontWeight.BOLD, font_family="jua"),
+                                        ft.Column([
+                                            ft.Text(value="Courses"),
+                                            ft.Text(value="completed")
+                                        ],
+                                            spacing=0,)
+                                    ]
+                                ),padding=ft.padding.only(top=14,bottom=14,left=20,right=20)
+                            )),
+                            UIcardcontainer(content=ft.Container(
+                                ft.Row(
+                                    [
+                                        ft.Text(value="4", size=45, weight=ft.FontWeight.BOLD, font_family="jua"),
+                                        ft.Column([
+                                            ft.Text(value="Courses"),
+                                            ft.Text(value="in Progress")
+                                        ],
+                                            spacing=0,)
+                                    ]
+                                ),padding=ft.padding.only(top=14,bottom=14,left=20,right=20)
+                            ))
+                        ],alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                    )
+                ),
+                ft.Text(value="Your Statistics", weight=ft.FontWeight.W_900, size=24, font_family="jua"),
                 ft.Container(
                     UIcardcontainer(
                         content=ft.Row(
@@ -324,18 +348,30 @@ def main(page: ft.Page):
                                 ft.Column(
                                     [
                                         ft.Text(value="Learn even more!", size=20, weight=ft.FontWeight.BOLD),
-                                        ft.Text(value="Unlock Premium Features", size=10, weight=ft.FontWeight.NORMAL),
-                                        UIbutton("Go Premium")
+                                        ft.Column(
+                                            [
+                                                ft.Text(value="Unlock Premium Features", size=10,
+                                                        weight=ft.FontWeight.NORMAL),
+                                                ft.Text(value="only for $9.99 per month", size=10,
+                                                        weight=ft.FontWeight.NORMAL),
+                                            ],
+                                            spacing=0,
+                                        ),
+
+                                        UIbutton("Go Premium"),
+
                                     ]
                                 ),
                                 ft.Container(
-                                    ft.Image(src="images/actor.png", fit=ft.ImageFit.COVER)
+                                    ft.Image(src="images/actor.png", fit=ft.ImageFit.COVER),
+                                    width=64,
+                                    height=64,
                                 )
                             ]
                         )
                     )
                 )
-            ]
+            ],spacing=0
         )
     )
 
