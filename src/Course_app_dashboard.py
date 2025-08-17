@@ -2,7 +2,7 @@ import flet as ft
 
 
 class UIcardcontainer(ft.Container):
-    def __init__(self, c_width=None, c_height=None, content=None, expansion=False):
+    def __init__(self, c_width=None, c_height=None, content=None, padding=None, expansion=False):
         super().__init__(
             bgcolor="#f5f5f7",
             width=c_width,
@@ -11,6 +11,7 @@ class UIcardcontainer(ft.Container):
         )
         self.content = content
         self.expand=expansion
+        self.padding=padding
 
 
 class UIbutton(ft.ElevatedButton):
@@ -205,6 +206,96 @@ def main(page: ft.Page):
 
     )
 
+    #chart
+    chart = ft.Container(
+        ft.LineChart(
+            left_axis=ft.ChartAxis(
+                labels=[
+                    ft.ChartAxisLabel(value=0, label=ft.Text("0", font_family="jua", color="black", size=14)),
+                    ft.ChartAxisLabel(value=1, label=ft.Text("1", font_family="jua", color="black", size=14)),
+                    ft.ChartAxisLabel(value=2, label=ft.Text("2", font_family="jua", color="black", size=14)),
+                    ft.ChartAxisLabel(value=3, label=ft.Text("3", font_family="jua", color="black", size=14)),
+                    ft.ChartAxisLabel(value=4, label=ft.Text("4", font_family="jua", color="black", size=14)),
+                    ft.ChartAxisLabel(value=5, label=ft.Text("5", font_family="jua", color="black", size=14)),
+                ]
+            ),
+            bottom_axis=ft.ChartAxis(
+                labels=[
+                    ft.ChartAxisLabel(value=0, label=ft.Text("mon", font_family="jua", color="black", size=14,
+                                                             weight=ft.FontWeight.BOLD)),
+                    ft.ChartAxisLabel(value=1, label=ft.Text("tue", font_family="jua", color="black", size=14,
+                                                             weight=ft.FontWeight.BOLD)),
+                    ft.ChartAxisLabel(value=2, label=ft.Text("wed", font_family="jua", color="black", size=14,
+                                                             weight=ft.FontWeight.BOLD)),
+                    ft.ChartAxisLabel(value=3, label=ft.Text("thu", font_family="jua", color="black", size=14,
+                                                             weight=ft.FontWeight.BOLD)),
+                    ft.ChartAxisLabel(value=4, label=ft.Text("fri", font_family="jua", color="black", size=14,
+                                                             weight=ft.FontWeight.BOLD)),
+                    ft.ChartAxisLabel(value=5, label=ft.Text("sat", font_family="jua", color="black", size=14,
+                                                             weight=ft.FontWeight.BOLD)),
+                    ft.ChartAxisLabel(value=6, label=ft.Text("sun", font_family="jua", color="black", size=14,
+                                                             weight=ft.FontWeight.BOLD)),
+                ]
+            ),
+            data_series=[
+                ft.LineChartData(
+                    [
+                        ft.LineChartDataPoint(0, 0),
+                        ft.LineChartDataPoint(1, 1.5),
+                        ft.LineChartDataPoint(2, 2.5),
+                        ft.LineChartDataPoint(3, 1),
+                        ft.LineChartDataPoint(4, 4),
+                        ft.LineChartDataPoint(5, 3),
+                        ft.LineChartDataPoint(6, 2)
+                    ],
+                    stroke_width=3,
+                    color=ft.Colors.BLACK,
+                    stroke_cap_round=True,
+                    curved=True,
+                    point=ft.ChartCirclePoint(color="black", stroke_width=2),
+
+                )
+            ],
+            point_line_start=0,
+            point_line_end=0,
+            tooltip_bgcolor=ft.Colors.WHITE,
+            tooltip_rounded_radius=6,
+            interactive=True,
+            horizontal_grid_lines=ft.ChartGridLines(interval=1, color=ft.Colors.GREEN_300, width=0.2),
+        ),
+        width=500,
+        height=400,
+        margin=ft.margin.only(top=20, left=20, right=20),
+
+    )
+
+    #chart + tab
+    chart_comp = ft.Container(
+        ft.Tabs(
+            selected_index=0,
+            label_color="black",
+            label_text_style=ft.TextStyle(weight=ft.FontWeight.BOLD),
+            indicator_color="black",
+            animation_duration=1000,
+            indicator_thickness=4,
+            overlay_color="transparent",
+            divider_color="transparent",
+            tab_alignment=ft.TabAlignment.START,
+            unselected_label_color=ft.Colors.GREY_600,
+            tabs=[
+                ft.Tab(
+                    text="learning Hours",
+                    content=chart
+                ),
+                ft.Tab(
+                    text="My Courses"
+                )
+            ]
+        ),
+        expand=True,
+        alignment=ft.alignment.center_left
+    )
+
     # main content definition
     main_content = ft.Container(
         ft.Column(
@@ -284,7 +375,7 @@ def main(page: ft.Page):
                         [
                             ft.Container(
                                 ft.TextField(
-                                    hint_text="Add a task",
+                                    hint_text="Search anything!",
                                     focused_border_color=ft.Colors.BLACK,
                                     show_cursor=True,
                                     width=300,
@@ -304,11 +395,13 @@ def main(page: ft.Page):
                                         ft.Container(ft.Image(src="images/icon.png", fit=ft.ImageFit.CONTAIN),
                                                      width=24, height=24, bgcolor="gray",),
                                         ft.IconButton(icon=ft.Icons.ARROW_DROP_DOWN_OUTLINED, icon_color="black")
-                                    ],
+                                    ],spacing=10
+
                                 )
                             )
-                        ]
-                    )
+                        ],
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    ),
                 ),
                 ft.Container(
                     ft.Row(
@@ -323,7 +416,7 @@ def main(page: ft.Page):
                                         ],
                                             spacing=0,)
                                     ]
-                                ),padding=ft.padding.only(top=14,bottom=14,left=20,right=20)
+                                ),padding=ft.padding.only(top=15,bottom=10,left=60,right=60)
                             )),
                             UIcardcontainer(content=ft.Container(
                                 ft.Row(
@@ -335,19 +428,22 @@ def main(page: ft.Page):
                                         ],
                                             spacing=0,)
                                     ]
-                                ),padding=ft.padding.only(top=14,bottom=14,left=20,right=20)
+                                ),padding=ft.padding.only(top=15,bottom=10,left=60,right=60)
                             ))
                         ],alignment=ft.MainAxisAlignment.SPACE_BETWEEN
-                    )
+                    ),
+                    margin=ft.margin.only(top=30,bottom=10),
                 ),
                 ft.Text(value="Your Statistics", weight=ft.FontWeight.W_900, size=24, font_family="jua"),
+                ft.Container(chart_comp,width=700, height=300),
                 ft.Container(
                     UIcardcontainer(
+                        padding=17,
                         content=ft.Row(
                             [
                                 ft.Column(
                                     [
-                                        ft.Text(value="Learn even more!", size=20, weight=ft.FontWeight.BOLD),
+                                        ft.Text(value="Learn even more!", size=16, weight=ft.FontWeight.BOLD),
                                         ft.Column(
                                             [
                                                 ft.Text(value="Unlock Premium Features", size=10,
@@ -362,16 +458,18 @@ def main(page: ft.Page):
 
                                     ]
                                 ),
-                                ft.Container(
-                                    ft.Image(src="images/actor.png", fit=ft.ImageFit.COVER),
-                                    width=64,
-                                    height=64,
-                                )
+                                # ft.Container(
+                                #     ft.Image(src="images/actor.png", fit=ft.ImageFit.COVER),
+                                #     width=64,
+                                #     height=64,
+                                # )
                             ]
                         )
-                    )
+                    ),
+                    margin=ft.margin.only(top=30, bottom=30),
                 )
-            ],spacing=0
+            ],spacing=0,
+            alignment=ft.MainAxisAlignment.SPACE_EVENLY
         )
     )
 
